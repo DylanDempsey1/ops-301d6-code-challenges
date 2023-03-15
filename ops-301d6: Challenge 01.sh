@@ -20,3 +20,6 @@ chmod +x copy_syslog.sh
 ./copy_syslog.sh
 
 # End
+
+
+# ChatGPT was referenced for this code.
