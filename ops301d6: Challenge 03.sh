@@ -42,3 +42,5 @@ case $choice in
 done
 
 # End
+
+# ChatGPT was referenced for this code
