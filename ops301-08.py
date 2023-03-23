@@ -10,7 +10,7 @@
 # Print the sixth through tenth element of the list.
 # Change the value of the seventh element to “onion”.
 
-
+# Main
 
 # Assign to a variable a list of ten funny string elements
 my_list = ['punny', 'giggly', 'snicker', 'chortle', 'guffaw', 'chuckle', 'teehee', 'lmao', 'rofl', 'lol']
@@ -26,3 +26,7 @@ my_list[6] = 'onion'
 
 # Print the updated list to verify the changes
 print(my_list)
+
+# End
+
+# ChatGPT was referenced for this code
