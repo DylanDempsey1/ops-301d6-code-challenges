@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Ops 301 Challenge 02
+# Dylan Dempsey
+# 03/15/23
+# Create a new bash script that performs the following:
+
+# Prompts user for input directory path.
+# Prompts user for input permissions number (e.g. 777 to perform a chmod 777)
+# Navigates to the directory input by the user and changes all files inside it to the input setting.
+# Prints to the screen the directory contents and the new permissions settings of everything in the directory.
+
+# Main
+
+# Prompt user for input directory path
+read -p "Please enter the directory path: " input_directory_path
+
+# Prompt user for input permissions number
+read -p "Please enter the permissions number (e.g., 777): " input_permissions
+
+# Navigate to the directory input by the user
+cd "$input_directory_path" || { echo "Error: Cannot navigate to directory."; exit 1; }
+
+# Change permissions for all files inside the directory
+find . -type f -exec chmod "$input_permissions" {} \;
+
+# Print the directory contents and the new permissions settings
+echo -e "\nDirectory contents and new permissions settings:"
+
+for file in *; do
+    if [[ -f "$file" ]]; then
+        file_permissions=$(stat -c "%A" "$file")
+        echo "$file_permissions $file"
+    fi
+done
+
+# End 
+
+# ChatGPT was referenced for this code

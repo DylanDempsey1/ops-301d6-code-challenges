@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Ops 301 Code Challenge 04
+# Dylan Dempsey
+# 03/18/23
+# Create a bash script that performs the following tasks:
+
+# Print to the screen the file size of the log files before compression
+# Compress the contents of the log files listed below to a backup directory
+# /var/log/syslog
+# /var/log/wtmp
+# The file name should contain a time stamp with the following format -YYYYMMDDHHMMSS
+# Example: /var/log/backups/syslog-20220928081457.zip
+# Clear the contents of the log file
+# Print to screen the file size of the compressed file
+# Compare the size of the compressed files to the size of the original log files
+
+# Set variables
+backup_directory="/var/log/backups"
+log_files=("/var/log/syslog" "/var/log/wtmp")
+timestamp=$(date +%Y%m%d%H%M%S)
+
+# Create the backup directory if it doesn't exist
+mkdir -p "$backup_directory"
+
+# Iterate over the log files, compress them, and clear their contents
+for log_file in "${log_files[@]}"; do
+  # Get the file size before compression
+  original_size=$(stat -c%s "$log_file")
+  echo "File size of $log_file before compression: $original_size bytes"
+
+  # Compress the log file
+  compressed_file="$backup_directory/$(basename "$log_file")-$timestamp.zip"
+  zip -j "$compressed_file" "$log_file"
+
+  # Clear the contents of the log file
+  echo -n > "$log_file"
+
+  # Get the file size after compression
+  compressed_size=$(stat -c%s "$compressed_file")
+  echo "File size of $compressed_file: $compressed_size bytes"
+
+  # Compare the sizes
+  size_diff=$((original_size - compressed_size))
+  echo "Size difference between original and compressed files: $size_diff bytes"
+  echo "------------------------------------"
+done
+
+# ChatGPT was referenced for this script.
